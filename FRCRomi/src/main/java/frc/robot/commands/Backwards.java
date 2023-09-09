@@ -11,17 +11,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Backwards extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final RomiDrivetrain m_subsystem;
-
+  
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Backwards(RomiDrivetrain subsystem) {
+  public Backwards(RomiDrivetrain subsystem, int backwards) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     //m_subsystem.getRightDistanceInch()
     addRequirements(subsystem);
+
+    m_backwards = backwards;
   }
 
   // Called when the command is initially scheduled.
