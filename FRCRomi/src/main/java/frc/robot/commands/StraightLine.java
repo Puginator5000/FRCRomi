@@ -5,59 +5,42 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.RomiDrivetrain;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class Backwards extends CommandBase {
+public class StraightLine extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final RomiDrivetrain m_subsystem;
-  private final int distance;
-
+  private final PIDController m_PIDBalance = new PIDController(0.5, 0, 0);
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Backwards(RomiDrivetrain subsystem, int distance) {
+  public StraightLine(RomiDrivetrain subsystem) {
     m_subsystem = subsystem;
-    this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
-    //m_subsystem.getRightDistanceInch()
     addRequirements(subsystem);
-
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    //it runs before the command the starts
-    //reset encoders
-    m_subsystem.resetEncoders();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //runs the command
-    //move backwards
-    m_subsystem.arcadeDrive(-.5, 0);
+    m_subsystem.arcadeDrive(0.5, m_PIDBalance.calculate(m_subsystem.m_Gyro.getAngleZ()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    //runs when the command ends
-    //STOP
-    m_subsystem.arcadeDrive(0, 0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //constantly checking if a statement is true or false
-    //return true when encoders read 5 inches
-    SmartDashboard.putNumber("Distance traveled", Math.abs(m_subsystem.getAverageDistanceInch()));
-    return (Math.abs(m_subsystem.getAverageDistanceInch()) >= this.distance);
+    return false;
   }
 }
