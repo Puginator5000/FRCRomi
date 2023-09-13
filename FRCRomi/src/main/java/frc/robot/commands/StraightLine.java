@@ -26,12 +26,14 @@ public class StraightLine extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_subsystem.m_Gyro.reset();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.arcadeDrive(0.5, m_PIDBalance.calculate(m_subsystem.m_Gyro.getAngleZ()));
+    m_subsystem.arcadeDrive(0.5, m_PIDBalance.calculate(m_subsystem.m_Gyro.getAngleZ(), 0));
   }
 
   // Called once the command ends or is interrupted.

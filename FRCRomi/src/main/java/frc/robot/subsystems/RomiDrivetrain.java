@@ -44,6 +44,18 @@ public class RomiDrivetrain extends SubsystemBase {
     m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
   }
 
+  public double getAngleZ(){
+    return m_Gyro.getAngleZ();
+  }
+
+  public double getAngleX(){
+    return m_Gyro.getAngleX();
+  }
+
+  public double getAngleY(){
+    return m_Gyro.getAngleY();
+  }
+
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();

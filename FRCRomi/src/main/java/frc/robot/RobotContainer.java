@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Backwards;
+import frc.robot.commands.Balance;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Forwards;
 import frc.robot.subsystems.RomiDrivetrain;
@@ -22,6 +23,8 @@ public class RobotContainer {
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
 
   private final Backwards m_backwards = new Backwards(m_romiDrivetrain, 5);
+
+  private final Balance m_balance = new Balance(m_romiDrivetrain, false);
 
   private final Forwards m_forwards = new Forwards(m_romiDrivetrain);
 
