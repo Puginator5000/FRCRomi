@@ -36,10 +36,10 @@ public class Balance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(backwards == false && m_suubsystem.getAngleY() >= 11){
+    if(backwards == false && m_subsystem.getAngleY() >= 11){
       onRamp = true;
     } 
-    else if(backwards == true && m_sbsystem.getAngleY() >= -11){
+    else if(backwards == true && m_subsystem.getAngleY() >= -11){
       onRamp = true;
     }
     if(onRamp){
