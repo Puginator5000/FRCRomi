@@ -17,6 +17,7 @@ public class Balance extends CommandBase {
   private boolean backwards;
   
   private boolean onRamp;
+  private boolean isDetected;
   /**
    * Creates a new ExampleCommand.
    *
@@ -36,16 +37,28 @@ public class Balance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(backwards == false && m_subsystem.getAngleY() >= 11){
+   
+    if (m_subsystem.getAngleY() <= 11){
+      m_subsystem.arcadeDrive(.5, 0);
+    }
+    //no need for >0 because you're always greater than 0
+    else{
+      isDetected = true;
+    }
+    
+    if (isDetected){
+      m_subsystem.arcadeDrive(m_PidBalance.calculate(m_subsystem.getAngleY(), 0), m_PidBalance.calculate(m_subsystem.getAngleZ(), 0));
+    }
+
+    /*if(backwards == false && m_subsystem.getAngleY() >= 11){
       onRamp = true;
     } 
-    else if(backwards == true && m_subsystem.getAngleY() >= -11){
+    else if(backwards == true && ((m_subsystem.getAngleY() >= -11) && (m_subsystem.getAngleY() <= 0)){
       onRamp = true;
     }
     if(onRamp){
       m_subsystem.arcadeDrive(m_PidBalance.calculate(m_subsystem.getAngleY(), 0), m_PidBalance.calculate(m_subsystem.getAngleZ(), 0));
-    }
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.
